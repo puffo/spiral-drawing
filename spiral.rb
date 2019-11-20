@@ -56,10 +56,10 @@ class Canvas
   EMPTY_CHARACTER   = ' '
   WRITTEN_CHARACTER = '*'
 
-  def initialize(size: 5)
+  def initialize(size: 5, cursor_x: 0, cursor_y: 0)
     @grid     = initialize_empty_grid(size)
-    @cursor_x = 0
-    @cursor_y = 0
+    @cursor_x = cursor_x
+    @cursor_y = cursor_y
   end
 
   def draw_right(distance)
@@ -67,6 +67,33 @@ class Canvas
 
     (distance-1).times do
       @cursor_y += 1
+      write_at_current_location
+    end
+  end
+
+  def draw_left(distance)
+    write_at_current_location
+
+    (distance-1).times do
+      @cursor_y -= 1
+      write_at_current_location
+    end
+  end
+
+  def draw_down(distance)
+    write_at_current_location
+
+    (distance-1).times do
+      @cursor_x += 1
+      write_at_current_location
+    end
+  end
+
+  def draw_up(distance)
+    write_at_current_location
+
+    (distance-1).times do
+      @cursor_x -= 1
       write_at_current_location
     end
   end

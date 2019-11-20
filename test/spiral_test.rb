@@ -57,6 +57,45 @@ class CanvasTest < Minitest::Test
     assert_equal expected_result, canvas.grid
   end
 
+  def test_canvas_can_draw_left_for_the_distance_specified
+    canvas = Canvas.new(size: 3, cursor_x: 0, cursor_y: 2)
+
+    canvas.draw_left(3)
+    expected_result = [
+      ['*', '*', '*'],
+      [' ', ' ', ' '],
+      [' ', ' ', ' '],
+    ]
+
+    assert_equal expected_result, canvas.grid
+  end
+
+  def test_canvas_can_draw_down_for_the_distance_specified
+    canvas = Canvas.new(size: 3, cursor_x: 0, cursor_y: 0)
+
+    canvas.draw_down(3)
+    expected_result = [
+      ['*', ' ', ' '],
+      ['*', ' ', ' '],
+      ['*', ' ', ' '],
+    ]
+
+    assert_equal expected_result, canvas.grid
+  end
+
+  def test_canvas_can_draw_up_for_the_distance_specified
+    canvas = Canvas.new(size: 3, cursor_x: 2, cursor_y: 2)
+
+    canvas.draw_up(3)
+    expected_result = [
+      [' ', ' ', '*'],
+      [' ', ' ', '*'],
+      [' ', ' ', '*'],
+    ]
+
+    assert_equal expected_result, canvas.grid
+  end
+
   private
 
   def default_size_three_canvas
