@@ -7,33 +7,33 @@ module Spiral
     x_location = 0
     y_location = 0
 
-    image_map = [ [ ] ]
+    canvas = [ [ ] ]
 
     (0..length_of_spiral-1).map{ |horizontal_bounds|
 
       empty_line = (0..length_of_spiral-1).map {
         [] << ' ';
       }
-      image_map << empty_line
+      canvas << empty_line
     }
 
-    draw_right(image_map, x_location, y_location, length_of_spiral)
+    draw_right(canvas, x_location, y_location, length_of_spiral)
   end
 
   private
 
-  def draw_right(image_map, x, y, distance)
+  def draw_right(canvas, x, y, distance)
     distance_of_line = distance - x - 1
-    p image_map
-    p x
-    p y
-    p distance
+    # p canvas
+    # p x
+    # p y
+    # p distance
 
     (x..distance_of_line).each do |x_location|
       p x_location
-      image_map[y][x_location] = IMAGE_CHARACTER
+      canvas[y][x_location] = IMAGE_CHARACTER
     end
-    image_map
+    canvas
   end
 
   ## Difficult approach (first attempt):
@@ -49,6 +49,46 @@ module Spiral
     # lines
   # end
 end
+
+class Canvas
+  attr_reader :grid, :cursor_x, :cursor_y
+
+  EMPTY_CHARACTER = ' '
+
+  def initialize(size: 5)
+    @grid     = initialize_empty_grid(size)
+    @cursor_x = 0
+    @cursor_y = 0
+  end
+
+  private
+
+  def initialize_empty_grid(grid_dimension)
+    grid_map  = []
+    grid_single_row  = []
+
+    grid_dimension.times do
+      grid_single_row << EMPTY_CHARACTER
+    end
+
+    grid_dimension.times do
+      grid_map << grid_single_row
+    end
+
+    grid_map
+  end
+end
+
+
+
+
+
+
+
+
+
+
+
 
 
 # Reference for 5
