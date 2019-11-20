@@ -30,7 +30,7 @@ module Spiral
     # p distance
 
     (x..distance_of_line).each do |x_location|
-      p x_location
+      # p x_location
       canvas[y][x_location] = IMAGE_CHARACTER
     end
     canvas
@@ -53,7 +53,8 @@ end
 class Canvas
   attr_reader :grid, :cursor_x, :cursor_y
 
-  EMPTY_CHARACTER = ' '
+  EMPTY_CHARACTER   = ' '
+  WRITTEN_CHARACTER = '*'
 
   def initialize(size: 5)
     @grid     = initialize_empty_grid(size)
@@ -61,7 +62,21 @@ class Canvas
     @cursor_y = 0
   end
 
+  def draw_right(distance)
+    write_at_current_location
+
+    (distance-1).times do
+      @cursor_y += 1
+      write_at_current_location
+    end
+  end
+
   private
+
+  def write_at_current_location
+    @grid[@cursor_x][@cursor_y] = WRITTEN_CHARACTER
+    # debug('Writing')
+  end
 
   def initialize_empty_grid(grid_dimension)
     grid_map  = []
@@ -72,10 +87,16 @@ class Canvas
     end
 
     grid_dimension.times do
-      grid_map << grid_single_row
+      grid_map << grid_single_row.dup
     end
 
     grid_map
+  end
+
+  def debug(operation)
+    p operation
+    p "X: #{@cursor_x} | Y: #{@cursor_y}"
+    p @grid
   end
 end
 

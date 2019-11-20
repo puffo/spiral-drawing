@@ -13,6 +13,7 @@ class SpiralTest < Minitest::Test
   end
 
   def test_prints_out_the_correct_spiral_for_a_the_parameter_of_12
+    skip
     expected_image =
       "************\n" +
       "           *\n"  +
@@ -27,7 +28,7 @@ end
 
 class CanvasTest < Minitest::Test
   def test_canvas_is_initialized_with_the_proper_grid_size
-    canvas = default_canvas
+    canvas = default_size_three_canvas
     expected_result = [
       [' ', ' ', ' '],
       [' ', ' ', ' '],
@@ -38,20 +39,27 @@ class CanvasTest < Minitest::Test
   end
 
   def test_canvas_is_initialized_with_the_cursor_at_the_top_left
-    canvas = default_canvas
+    canvas = default_size_three_canvas
     assert_equal 0, canvas.cursor_x
     assert_equal 0, canvas.cursor_y
   end
 
-  # def test_canvas_can_draw_right_for_the_distance_specified
-    # canvas = default_canvas
+  def test_canvas_can_draw_right_for_the_distance_specified
+    canvas = default_size_three_canvas
 
-    # canvas
-  # end
+    canvas.draw_right(3)
+    expected_result = [
+      ['*', '*', '*'],
+      [' ', ' ', ' '],
+      [' ', ' ', ' '],
+    ]
+
+    assert_equal expected_result, canvas.grid
+  end
 
   private
 
-  def default_canvas
+  def default_size_three_canvas
     Canvas.new(size: 3)
   end
 end
