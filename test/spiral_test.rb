@@ -16,6 +16,22 @@ class SpiralTest < Minitest::Test
     ]
     assert_equal expected_result, Spiral.call(size: 5)
   end
+
+  def test_prints_out_the_correct_spiral_for_a_the_parameter_of_10
+    expected_result = [
+      ['*', '*', '*', '*', '*', '*', '*', '*', '*', '*' ],
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '*' ],
+      [' ', '*', '*', '*', '*', '*', '*', '*', ' ', '*' ],
+      [' ', '*', ' ', ' ', ' ', ' ', ' ', '*', ' ', '*' ],
+      [' ', '*', ' ', '*', '*', '*', ' ', '*', ' ', '*' ],
+      [' ', '*', ' ', '*', '*', '*', ' ', '*', ' ', '*' ],
+      [' ', '*', ' ', '*', '*', '*', ' ', '*', ' ', '*' ],
+      [' ', '*', ' ', '*', '*', '*', '*', '*', ' ', '*' ],
+      [' ', '*', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '*' ],
+      [' ', '*', '*', '*', '*', '*', '*', '*', '*', '*' ],
+    ]
+    assert_equal expected_result, Spiral.call(size: 10)
+  end
 end
 
 class CanvasTest < Minitest::Test
