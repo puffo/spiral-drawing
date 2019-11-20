@@ -8,6 +8,11 @@ module Spiral
     while spiral_arm_count >= 0
       canvas.draw_right(spiral_arm_count)
 
+      # make sure the first and second lines are the same sizes
+      if spiral_arm_count != size
+        spiral_arm_count -= 1
+      end
+
       canvas.draw_down(spiral_arm_count)
       spiral_arm_count -= 1
 
@@ -16,10 +21,10 @@ module Spiral
 
       canvas.draw_up(spiral_arm_count)
       spiral_arm_count -= 1
-      # canvas.send(:debug, 'Curve')
+
     end
 
-    canvas.grid
+    canvas.pretty
   end
 end
 
@@ -71,11 +76,23 @@ class Canvas
     end
   end
 
+  def pretty
+    @grid.each do |row|
+      p row.join(' ')
+    end
+  end
+
+  def debug(operation)
+    p operation
+    p "X: #{@cursor_x} | Y: #{@cursor_y}"
+    self.pretty
+  end
+
   private
 
   def write_at_current_location
     @grid[@cursor_x][@cursor_y] = WRITTEN_CHARACTER
-    # debug('Writing')
+    # debug('Writing')        # uncomment to debug for problems
   end
 
   def initialize_empty_grid(grid_dimension)
@@ -92,32 +109,5 @@ class Canvas
 
     grid_map
   end
-
-  def debug(operation)
-    p operation
-    p "X: #{@cursor_x} | Y: #{@cursor_y}"
-    p @grid
-  end
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-# Reference for 5
-# *****\n
-    # *
- # ** *
- # ** *
- # ****
-
-
 
