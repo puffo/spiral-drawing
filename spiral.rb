@@ -1,53 +1,26 @@
 module Spiral
   extend self
 
-  IMAGE_CHARACTER = '*'
+  def call(size: size)
+    canvas = Canvas.new(size: size)
+    spiral_arm_count = size
 
-  def call(length_of_spiral)
-    x_location = 0
-    y_location = 0
+    while spiral_arm_count >= 0
+      canvas.draw_right(spiral_arm_count)
 
-    canvas = [ [ ] ]
+      canvas.draw_down(spiral_arm_count)
+      spiral_arm_count -= 1
 
-    (0..length_of_spiral-1).map{ |horizontal_bounds|
+      canvas.draw_left(spiral_arm_count)
+      spiral_arm_count -= 1
 
-      empty_line = (0..length_of_spiral-1).map {
-        [] << ' ';
-      }
-      canvas << empty_line
-    }
-
-    draw_right(canvas, x_location, y_location, length_of_spiral)
-  end
-
-  private
-
-  def draw_right(canvas, x, y, distance)
-    distance_of_line = distance - x - 1
-    # p canvas
-    # p x
-    # p y
-    # p distance
-
-    (x..distance_of_line).each do |x_location|
-      # p x_location
-      canvas[y][x_location] = IMAGE_CHARACTER
+      canvas.draw_up(spiral_arm_count)
+      spiral_arm_count -= 1
+      # canvas.send(:debug, 'Curve')
     end
-    canvas
+
+    canvas.grid
   end
-
-  ## Difficult approach (first attempt):
-  # def call(length_of_spiral)
-    # lines = []
-
-    # (1..length_of_spiral).each_with_index do |line, index|
-      # line = IMAGE_CHARACTER * length_of_spiral
-      # p "Line number: #{index}"
-      # p "Actual line: #{line}"
-    # end
-
-    # lines
-  # end
 end
 
 class Canvas
